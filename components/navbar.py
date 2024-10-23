@@ -2,13 +2,15 @@ import dash_bootstrap_components as dbc
 from dash import html
 from configurations.config import *
 
+# Define the navbar
 navbar = dbc.Navbar(
     dbc.Nav(
         [
             dbc.NavLink(
                 html.Img(src=project_logo, style={"width": "100%", "maxHeight": "10vh", "marginTop": "10px"}),
                 active="exact",
-                style={"backgroundColor": "transparent", "border": "none"}
+                style={"backgroundColor": "transparent", "border": "none"},
+                id="logo-link"
             ),
             html.Br(),
             dbc.Stack([
@@ -16,31 +18,38 @@ navbar = dbc.Navbar(
                     html.Img(src=home_icon, style={"width": "50%", "maxHeight": "10vh"}),
                     href="/",
                     active="exact",
-                    style={"backgroundColor": "transparent", "border": "none"}
+                    style={"backgroundColor": "transparent", "border": "none"},
+                    id="home-link"
                 ),
+                dbc.Tooltip("Home Page", target="home-link", placement="right"),
                 html.Br(),
                 dbc.NavLink(
                     html.Img(src=sen_and_tren_icon, style={"width": "50%", "maxHeight": "10vh"}),
                     href="/app",
                     active="exact",
-                    style={"backgroundColor": "transparent", "border": "none"}
+                    style={"backgroundColor": "transparent", "border": "none"},
+                    id="sent-trend-link"
                 ),
+                dbc.Tooltip("Sentiment & Trends", target="sent-trend-link", placement="right"),
                 html.Br(),
                 dbc.NavLink(
                     html.Img(src=article_icon, style={"width": "50%", "maxHeight": "10vh"}),
-                    href="/article",
+                    href="/article_analysis",
                     active="exact",
-                    style={"backgroundColor": "transparent", "border": "none"}
+                    style={"backgroundColor": "transparent", "border": "none"},
+                    id="article-link"
                 ),
+                dbc.Tooltip("Article Analysis", target="article-link", placement="right"),
             ]),
             dbc.NavLink(
                 html.Img(src=user_icon, style={"width": "100%", "maxHeight": "10vh", "marginBottom": "10px"}),
                 href="/aboutme",
                 active="exact",
-                style={"backgroundColor": "transparent", "border": "none"}
+                style={"backgroundColor": "transparent", "border": "none"},
+                id="aboutme-link"
             ),
+            dbc.Tooltip("About Me", target="aboutme-link", placement="right"),
         ],
-        # vertical="md",
         style={
             "textAlign": "center",
             "display": "flex",

@@ -6,13 +6,9 @@ from components.navbar import *
 from components.plot_card import * 
 import dash
 
-dash.register_page(__name__, path='/app')
-
-def layout():
-    return get_app_layout()
-
 # App layout
-def get_app_layout():
+def get_app_layout(page_name, page_top=None, placeholder="Select an option"):
+    article_options_label = page_labels[page_name]
     return html.Div(
     style={"display": "flex", "height": "100vh"},
     children=[
@@ -20,19 +16,8 @@ def get_app_layout():
         dbc.Col(
             dbc.Container(
                 [
-                    dbc.Row(dbc.Col(id="cards-container", children=[create_card(1)])),
-                    dbc.Row(
-                        dbc.Col(
-                            html.Div(
-                                [
-                                    html.I(className="fas fa-plus", style={"fontSize": "30px", "cursor": "pointer"}),
-                                    dbc.Tooltip("Add Plot", target="add-card-icon", placement="top"),
-                                ],
-                                id="add-card-icon",
-                                style={"textAlign": "center", "marginTop": "20px"},
-                            )
-                        )
-                    ),
+                    dbc.Row(dbc.Col(id="page-top-container", children=page_top)),
+                    dbc.Row(dbc.Col(id="cards-container", children=[create_plot_card(1, page_name, placeholder=placeholder)]))
                 ],
                 style={"marginTop": "20px"},
             ),

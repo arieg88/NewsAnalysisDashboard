@@ -10,6 +10,7 @@ from components.navbar import *
 from components.plot_card import *
 from utils import load_dfs
 import callbacks
+
 # from layouts.homepahe_layout import create_homepage_layout
 
 
@@ -17,7 +18,6 @@ import callbacks
 df = pd.read_csv("./data/final_df.csv")
 
 dfs = load_dfs()
-
 # # Ensure that the Agg_Finbert_aggregated_score is numeric, converting if necessary
 # df['Agg_Finbert_aggregated_score'] = pd.to_numeric(df['Agg_Finbert_aggregated_score'], errors='coerce')
 

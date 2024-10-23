@@ -3,35 +3,76 @@ from dash import dcc, html
 from configurations.config import *
 
 # Function to create a card
-def create_card(card_number):
+def create_plot_card(card_number, page_name, placeholder="Select an option"):
+    label = page_labels[page_name]
     return dbc.Card(
         [
             dbc.CardHeader(
-                dcc.Dropdown(
-                    id={'type': 'category-dropdown', 'index': card_number},
-                    options=[{"label": option['label'], "value": option['value']} for option in options],
-                    value="",  # Default value is empty
-                    clearable=False,
-                    placeholder="Choose Category",
+                html.H1(
+                    f"{label}",
+                    id={'type': 'category-header'},
                     style={'text-align': 'center'}
                 ),
             ),
-            dbc.Collapse(
-                dbc.CardBody(
-                    [
-                        dcc.Dropdown(
-                            id={'type': 'subcategory-dropdown', 'index': card_number},
-                            options=[],  # Initially empty
-                            value="",  # Default value
-                            clearable=False,
-                            placeholder="Select an option",
-                            style={'text-align': 'center'}
-                        ),
-                        html.Div(id={'type': 'output', 'index': card_number})
-                    ]
-                ),
-                id={'type': 'collapse-card', 'index': card_number},
-                is_open=False,
+            dbc.CardBody(
+                [
+                    dbc.Row(
+                        [
+                            dbc.Col(
+                                [
+                                    # Top Dropdown
+                                    dcc.Dropdown(
+                                        id={'type': 'subcategory-dropdown-top-left'},
+                                        options=categories[page_name],  # Initially empty
+                                        value="sentiment_analysis_per_sentence",  # Default value
+                                        clearable=False,
+                                        placeholder=placeholder,
+                                        style={'text-align': 'center'}
+                                    ),
+                                    # Output for Top Dropdown
+                                    html.Div(id={'type': 'output-top-left'}),
+                                ],
+                                width=6,  # Left Column takes half the width
+                                id={'type': 'top-left-panel'},
+                            ),
+                            dbc.Col(
+                                [
+                                    # Top Dropdown
+                                    dcc.Dropdown(
+                                        id={'type': 'subcategory-dropdown-top-right'},
+                                        options=categories[page_name],  # Initially empty
+                                        value="sentiment_analysis_per_sentence",  # Default value
+                                        clearable=False,
+                                        placeholder=placeholder,
+                                        style={'text-align': 'center'}
+                                    ),
+                                    # Output for Top Dropdown
+                                    html.Div(id={'type': 'output-top-right'}),
+                                ],
+                                width=6,  # Right Column takes half the width
+                                id={'type': 'top-right-panel'},
+                            ),
+                        ],
+                        id={'type': 'top-panel'},
+                    ),
+                    dbc.Row(
+                        [     
+                            # Bottom Dropdown
+                            dcc.Dropdown(
+                                id={'type': 'subcategory-dropdown-bottom'},
+                                options=categories[page_name],  # Initially empty
+                                value="sentiment_analysis_per_sentence",  # Default value
+                                clearable=False,
+                                placeholder=placeholder,
+                                style={'text-align': 'center'}
+                            ),
+                            # Output for Bottom Dropdown
+                            html.Div(id={'type': 'output-bottom'}),
+                        ],
+                        id={'type': 'bottom-panel'},
+                    ),
+                ],
+                id={'type': 'card-body'},
             ),
         ],
         className="mb-4",
