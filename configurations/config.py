@@ -8,6 +8,9 @@ companies = ['Apple', 'Microsoft', 'Nvidia', 'Amazon', 'Meta', 'Alphabet', 'Berk
 project_logo = "../assets/logo.png"
 home_icon = "./assets/home.png"
 user_icon = "./assets/user.png"
+sen_and_tren_icon = './assets/chart-histogram.png'
+article_icon = './assets/document.png'
+
 # Define the available options
 categories = {
     "article_options": [

@@ -2,7 +2,6 @@ from dash.dependencies import Input, Output, State, MATCH
 from configurations.config import *
 from components.navbar import *
 from components.plot_card import * 
-from layouts.App_layout import *
 from utils import load_dfs
 
 def register_add_card(app):

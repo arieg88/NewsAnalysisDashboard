@@ -4,7 +4,6 @@ import plotly.express as px
 from configurations.config import *
 from components.navbar import *
 from components.plot_card import * 
-from layouts.App_layout import *
 from plots.article_plots import *
 
 def register_update_output(app, dfs):

@@ -7,10 +7,11 @@ import plotly
 import plotly.express as px
 from configurations.config import *
 from components.navbar import *
-from components.plot_card import * 
-from layouts.App_layout import *
+from components.plot_card import *
 from utils import load_dfs
 import callbacks
+# from layouts.homepahe_layout import create_homepage_layout
+
 
 # Load the DataFrame
 df = pd.read_csv("./data/final_df.csv")
@@ -32,9 +33,9 @@ external_stylesheets = [
 ]
 
 # Create the Dash app instance
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets, suppress_callback_exceptions=True)
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets, suppress_callback_exceptions=True, use_pages=True, pages_folder="layouts")
 
-app.layout = get_app_layout()
+app.layout = dbc.Container(dash.page_container, fluid=True)
 
 callbacks.register_callbacks(app, dfs)
 

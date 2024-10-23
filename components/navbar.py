@@ -11,14 +11,28 @@ navbar = dbc.Navbar(
                 style={"backgroundColor": "transparent", "border": "none"}
             ),
             html.Br(),
-            dbc.Stack(
+            dbc.Stack([
                 dbc.NavLink(
                     html.Img(src=home_icon, style={"width": "50%", "maxHeight": "10vh"}),
                     href="/",
                     active="exact",
                     style={"backgroundColor": "transparent", "border": "none"}
                 ),
-            ),
+                html.Br(),
+                dbc.NavLink(
+                    html.Img(src=sen_and_tren_icon, style={"width": "50%", "maxHeight": "10vh"}),
+                    href="/app",
+                    active="exact",
+                    style={"backgroundColor": "transparent", "border": "none"}
+                ),
+                html.Br(),
+                dbc.NavLink(
+                    html.Img(src=article_icon, style={"width": "50%", "maxHeight": "10vh"}),
+                    href="/article",
+                    active="exact",
+                    style={"backgroundColor": "transparent", "border": "none"}
+                ),
+            ]),
             dbc.NavLink(
                 html.Img(src=user_icon, style={"width": "100%", "maxHeight": "10vh", "marginBottom": "10px"}),
                 href="/aboutme",
