@@ -10,119 +10,119 @@ def get_filter_values(page_name):
         Input({'type': 'author-selection-dropdown', "page": page_name}, 'value'),   # Author filter
         (Input({'type': 'article-date-picker', "page": page_name}, 'start_date'),    # Start date for date range
         Input({'type': 'article-date-picker', "page": page_name}, 'end_date') ),      # End date for date range
+        # Input({'type': 'content-search-input', "page": page_name}, 'value'),         # Content search input
     ]
 
+def get_arrow_click(page_name):
+    return Input({'type': 'collapse-arrow', 'page': page_name}, 'n_clicks')
 
 def get_filters_area(page_name):
-    return dbc.Row(
+    return dbc.Col(
         [
-
-            html.Label('Filter By:', style={'font-weight': 'bold'}),
-            # Row for Company, Date, and Author filters
+            # Filter label with collapsible arrow
             dbc.Row(
                 [
-                    # Filter by company
-                    dbc.Col(
-                        html.Div(
+                html.Label('Filter By:', style={'font-weight': 'bold'}),
+                dbc.Button(
+                    "Show/Hide Filters", 
+                    color="secondary",
+                    id={'type': 'collapse-filters', 'page': page_name},
+                    n_clicks=0,
+                    style={
+                        'display': 'inline-block',  # Ensure the button only takes the space of its content
+                        'text-align': 'center',      # Center the text inside the button
+                        'margin-left': '10px',      # Add margin to separate from the label
+                    }
+                )
+                ],
+                align='left'  # Aligns the label and button
+            ),
+            # Filters area (initially hidden)
+            dbc.Collapse(
+                dbc.Col(  # Correctly use dbc.Row and dbc.Col
+                    [
+                        # Row for Company, Author, and Content filters
+                        dbc.Row(
                             [
-                                html.Label("Company", style={'font-weight': 'bold'}),
-                                dcc.Dropdown(
-                                    id={'type': 'company-selection-dropdown', 'page': page_name},
-                                    options=companies, 
-                                    placeholder="Select a company",
-                                    clearable=True,
-                                    multi=True,
-                                    style={'width': '100%'}
+                                dbc.Col(
+                                    html.Div(
+                                        [
+                                            html.Label("Company", style={'font-weight': 'bold'}),
+                                            dcc.Dropdown(
+                                                id={'type': 'company-selection-dropdown', 'page': page_name},
+                                                options=companies, 
+                                                placeholder="Select a company",
+                                                clearable=True,
+                                                multi=True,
+                                                style={'width': '100%'}
+                                            ),
+                                        ],
+                                    ),
+                                    width=4,  # Adjust column width
+                                ),
+
+                                # Filter by author
+                                dbc.Col(
+                                    html.Div(
+                                        [
+                                            html.Label("Author", style={'font-weight': 'bold'}),
+                                            dcc.Dropdown(
+                                                id={'type': 'author-selection-dropdown', 'page': page_name},
+                                                options=[],  # To be populated dynamically
+                                                placeholder="Select an author",
+                                                clearable=True,
+                                                multi=True,
+                                                style={'width': '100%'}
+                                            ),
+                                        ]
+                                    ),
+                                    width=4,  # Adjust column width
+                                ),
+
+                                # Filter by content (new text input)
+                                dbc.Col(
+                                    html.Div(
+                                        [
+                                            html.Label("Search in Article Content", style={'font-weight': 'bold'}),
+                                            dcc.Input(
+                                                id={'type': 'content-search-input', 'page': page_name},
+                                                type='text',
+                                                placeholder="Enter keyword(s) to search",
+                                                style={'width': '100%'}
+                                            ),
+                                        ]
+                                    ),
+                                    width=4,  # Adjust column width
                                 ),
                             ],
+                            className="mb-4"  # Margin below the row
                         ),
-                        width=4,  # Adjust the column width
-                    ),
-
-                    # Filter by author
-                    dbc.Col(
-                        html.Div(
+                        # Row for Date Range Picker
+                        dbc.Row(
                             [
-                                html.Label("Author", style={'font-weight': 'bold'}),
-                                dcc.Dropdown(
-                                    id={'type': 'author-selection-dropdown', 'page': page_name},
-                                    options=[],  # To be populated dynamically
-                                    placeholder="Select an author",
-                                    clearable=True,
-                                    multi=True,
-                                    style={'width': '100%'}
+                                dbc.Col(
+                                    html.Div(
+                                        [
+                                            html.Label("Date Range", style={'font-weight': 'bold'}),
+                                            dcc.DatePickerRange(
+                                                id={'type': 'article-date-picker', 'page': page_name},
+                                                start_date=None,  # Default start date can be set here
+                                                end_date=None,    # Default end date can be set here
+                                                display_format='YYYY-MM-DD',
+                                                style={'width': '100%'}
+                                            ),
+                                        ]
+                                    ),
+                                    width=12,  # Full width for the date picker
                                 ),
-                            ]
+                            ],
+                            className="mb-4"  # Margin below the date picker
                         ),
-                        width=4,  # Adjust the column width
-                    ),
-                    # Filter by date (using a cleaner date range picker)
-                    dbc.Col(
-                        html.Div(
-                            [
-                                html.Label("Date Range", style={'font-weight': 'bold'}),
-                                dcc.DatePickerRange(
-                                    id={'type': 'article-date-picker', 'page': page_name},
-                                    start_date=None,  # Default start date can be set here
-                                    end_date=None,    # Default end date can be set here
-                                    display_format='YYYY-MM-DD',
-                                    style={'width': '100%'}
-                                ),
-                            ]
-                        ),
-                        width=4,  # Adjust the column width
-                    ),
-                ],
-                style={'height': '50%'},
-                className="mb-4"  # Add margin between filters and other elements
-            ),
-            
-            # # Collapsible advanced filters
-            # dbc.Collapse(
-            #     dbc.CardBody(
-            #         [
-            #             html.Label("Advanced Filters", style={'font-weight': 'bold'}),
-                        
-            #             # Filter by sentiment score
-            #             html.Div(
-            #                 [
-            #                     html.Label("Sentiment Score Range", style={'margin-top': '10px'}),
-            #                     dcc.RangeSlider(
-            #                         id={'type': 'sentiment-range-slider'},
-            #                         min=-1, max=1, step=0.1,
-            #                         marks={-1: '-1', 0: '0', 1: '1'},
-            #                         value=[-0.5, 0.5]
-            #                     ),
-            #                 ],
-            #                 style={'margin-top': '20px'}
-            #             ),
-                        
-            #             # Filter by article length
-            #             html.Div(
-            #                 [
-            #                     html.Label("Article Length (Number of Sentences)", style={'margin-top': '10px'}),
-            #                     dcc.Input(
-            #                         id={'type': 'article-length-filter'},
-            #                         type='number',
-            #                         placeholder="Minimum number of sentences",
-            #                         style={'margin-bottom': '10px', 'text-align': 'center'}
-            #                     ),
-            #                 ],
-            #                 style={'margin-top': '20px'}
-            #             ),
-            #         ]
-            #     ),
-            #     id={'type': 'advanced-filters-collapse'},
-            #     is_open=False  # Initially closed
-            # ),
-            
-            # # Button to toggle advanced filters
-            # dbc.Button(
-            #     "Advanced Filters",
-            #     id={'type': 'toggle-advanced-filters-btn'},
-            #     color="link",
-            #     style={'margin-top': '10px', 'text-align': 'center'}
-            # )
+                    ]
+                ),
+                id={'style': 'filters-collapse', 'page': page_name},
+                is_open=False  # Initially closed
+            )
         ],
         id={'style': 'filters-area', 'page': page_name}
     )

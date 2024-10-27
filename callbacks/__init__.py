@@ -7,6 +7,8 @@ from .update_article_info import register_update_article_info
 from .update_article_output import register_article_output_update
 from .update_trends_and_patterns_output import register_trends_and_patterns_output_update
 from .update_article_selection import register_update_article_selection
+from .toggle_filters import register_toggle_filters
+
 
 def register_callbacks(app, dfs):
     # register_toggle_add_card_button(app)
@@ -19,3 +21,4 @@ def register_callbacks(app, dfs):
     register_article_output_update(app, dfs)
     register_update_article_info(app, dfs)
     register_trends_and_patterns_output_update(app, dfs)
+    register_toggle_filters(app)

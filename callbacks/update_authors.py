@@ -3,7 +3,6 @@ import plotly.express as px
 from configurations.config import *
 from components.navbar import *
 from components.plot_card import *
-from components.filters_area import get_filter_values  # Import your filter values function
 import pandas as pd
 
 # Register callback to update the article selection dropdown based on the DataFrame (dfs)
