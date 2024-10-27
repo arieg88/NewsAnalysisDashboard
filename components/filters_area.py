@@ -4,16 +4,16 @@ from dash.dependencies import Input, Output
 import dash
 from configurations.config import *
 
-def get_filter_values():
+def get_filter_values(page_name):
     return [
-        Input({'type': 'company-selection-dropdown'}, 'value'),  # Company filter
-        Input({'type': 'author-selection-dropdown'}, 'value'),   # Author filter
-        (Input({'type': 'article-date-picker'}, 'start_date'),    # Start date for date range
-        Input({'type': 'article-date-picker'}, 'end_date') ),      # End date for date range
+        Input({'type': 'company-selection-dropdown', "page": page_name}, 'value'),  # Company filter
+        Input({'type': 'author-selection-dropdown', "page": page_name}, 'value'),   # Author filter
+        (Input({'type': 'article-date-picker', "page": page_name}, 'start_date'),    # Start date for date range
+        Input({'type': 'article-date-picker', "page": page_name}, 'end_date') ),      # End date for date range
     ]
 
 
-def get_filters_area():
+def get_filters_area(page_name):
     return dbc.Row(
         [
 
@@ -27,7 +27,7 @@ def get_filters_area():
                             [
                                 html.Label("Company", style={'font-weight': 'bold'}),
                                 dcc.Dropdown(
-                                    id={'type': 'company-selection-dropdown'},
+                                    id={'type': 'company-selection-dropdown', 'page': page_name},
                                     options=companies, 
                                     placeholder="Select a company",
                                     clearable=True,
@@ -45,7 +45,7 @@ def get_filters_area():
                             [
                                 html.Label("Author", style={'font-weight': 'bold'}),
                                 dcc.Dropdown(
-                                    id={'type': 'author-selection-dropdown'},
+                                    id={'type': 'author-selection-dropdown', 'page': page_name},
                                     options=[],  # To be populated dynamically
                                     placeholder="Select an author",
                                     clearable=True,
@@ -62,7 +62,7 @@ def get_filters_area():
                             [
                                 html.Label("Date Range", style={'font-weight': 'bold'}),
                                 dcc.DatePickerRange(
-                                    id={'type': 'article-date-picker'},
+                                    id={'type': 'article-date-picker', 'page': page_name},
                                     start_date=None,  # Default start date can be set here
                                     end_date=None,    # Default end date can be set here
                                     display_format='YYYY-MM-DD',
@@ -124,5 +124,5 @@ def get_filters_area():
             #     style={'margin-top': '10px', 'text-align': 'center'}
             # )
         ],
-        id={'style': 'filters-area'}
+        id={'style': 'filters-area', 'page': page_name}
     )

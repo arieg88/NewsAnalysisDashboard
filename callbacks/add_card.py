@@ -38,8 +38,8 @@ def determine_category_from_path(page_path):
     """
     if 'article_analysis' in page_path:
         return 'article_page'
-    elif 'sentiment_analysis' in page_path:
-        return 'sentiment_page'
+    elif 'trends_and_patterns' in page_path:
+        return 'trends_and_patterns_page'
     elif 'emotion_analysis' in page_path:
         return 'emotion_page'
     elif 'comparative_analysis' in page_path:

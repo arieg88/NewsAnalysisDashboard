@@ -9,8 +9,8 @@ from plots.article_plots import *
 def register_update_bart_summary(app, dfs):
     # Callback for generating plots based on selected subcategory
     @app.callback(
-        Output({'type': 'bart-summary-area'}, 'children'),
-        Input({'type': 'article-selection-dropdown'}, 'value')
+        Output({'type': 'bart-summary-area', 'page': article_page_name}, 'children'),
+        Input({'type': 'article-selection-dropdown', 'page': article_page_name}, 'value')
     )
     def update_bart_summary(article_index):
         if article_index == None:

@@ -6,16 +6,15 @@ from configurations.config import *
 
 dash.register_page(__name__, path='/article_analysis')
 
-page_name = 'article_page'
-label = page_labels[page_name]
+label = page_labels[article_page_name]
 
 def layout():
     page_top = create_article_selection_card()
 
     return html.Div(
         children=[
-            dcc.Store(id='page-load-trigger', data=True),  # This triggers the page load
-            get_app_layout(page_name, page_top=page_top, placeholder='Select article by...')
+            dcc.Store(id='page-load-trigger', data='article_analysis'),  # This triggers the page load
+            get_app_layout(article_page_name, page_top=page_top, placeholder='Select article by...')
         ],
-        id={'type': 'article-main-div'}
+        id={'type': 'article-main-div', "page": "article_page_name"}
     )

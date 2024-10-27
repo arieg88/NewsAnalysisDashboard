@@ -2,6 +2,7 @@ import dash_bootstrap_components as dbc
 from dash import dcc, html
 from dash.dependencies import Input, Output
 from .filters_area import get_filters_area
+from configurations.config import *
 import dash
 
 # Function to create a card with filters
@@ -11,7 +12,7 @@ def create_article_selection_card(placeholder="Select an article"):
             dbc.CardHeader(
                 html.H1(
                     "Explore The Articles",
-                    id={'type': 'article-header-card-header'},
+                    id={'type': 'article-header-card-header', 'page': article_page_name},
                     style={'text-align': 'center'}
                 ),
             ),
@@ -19,7 +20,7 @@ def create_article_selection_card(placeholder="Select an article"):
                 [
                     # Dropdown for article selection
                     dcc.Dropdown(
-                        id={'type': 'article-selection-dropdown'},
+                        id={'type': 'article-selection-dropdown', 'page': article_page_name},
                         options=[],  # Initially empty, will be populated dynamically
                         clearable=False,
                         value=0,
@@ -27,18 +28,20 @@ def create_article_selection_card(placeholder="Select an article"):
                         style={'text-align': 'center'}
                     ),
                     html.Div(
-                        get_filters_area(),
+                        get_filters_area(article_page_name),
                     ),
                 ],
-                id={'type': 'article-selection-card-body'},
+                id={'type': 'article-selection-card-body', 'page': article_page_name},
             ),
             dbc.CardBody(
                 [
+                    html.H2('Article Info:'),
+                    dbc.Row(id={'type': 'article-info-area', 'page': article_page_name}),
                     html.H2('Bart Summary:'),
                     html.Br(),
-                    html.Div(id={'type': 'bart-summary-area'}),
+                    html.Div(id={'type': 'bart-summary-area', 'page': article_page_name}),
                 ],
-                id={'type': 'bart-summary-panel'}
+                id={'type': 'bart-summary-panel', 'page': article_page_name}
 
             )
         ],

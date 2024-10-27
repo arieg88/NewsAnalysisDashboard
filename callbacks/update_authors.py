@@ -1,4 +1,4 @@
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, MATCH
 import plotly.express as px
 from configurations.config import *
 from components.navbar import *
@@ -9,7 +9,7 @@ import pandas as pd
 # Register callback to update the article selection dropdown based on the DataFrame (dfs)
 def register_update_authors_list(app, dfs):
     @app.callback(
-        Output({'type': 'author-selection-dropdown'}, 'options'),
+        Output({'type': 'author-selection-dropdown', "page": MATCH}, 'options'),
         Input('page-load-trigger', 'data'),  # This will be triggered on page load
     )
     def update_authors_list(_):

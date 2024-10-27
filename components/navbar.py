@@ -24,15 +24,6 @@ navbar = dbc.Navbar(
                 dbc.Tooltip("Home Page", target="home-link", placement="right"),
                 html.Br(),
                 dbc.NavLink(
-                    html.Img(src=sen_and_tren_icon, style={"width": "50%", "maxHeight": "10vh"}),
-                    href="/app",
-                    active="exact",
-                    style={"backgroundColor": "transparent", "border": "none"},
-                    id="sent-trend-link"
-                ),
-                dbc.Tooltip("Sentiment & Trends", target="sent-trend-link", placement="right"),
-                html.Br(),
-                dbc.NavLink(
                     html.Img(src=article_icon, style={"width": "50%", "maxHeight": "10vh"}),
                     href="/article_analysis",
                     active="exact",
@@ -40,6 +31,15 @@ navbar = dbc.Navbar(
                     id="article-link"
                 ),
                 dbc.Tooltip("Article Analysis", target="article-link", placement="right"),
+                html.Br(),
+                dbc.NavLink(
+                    html.Img(src=sen_and_tren_icon, style={"width": "50%", "maxHeight": "10vh"}),
+                    href="/trends_and_patterns",
+                    active="exact",
+                    style={"backgroundColor": "transparent", "border": "none"},
+                    id="sentiment-link"
+                ),
+                dbc.Tooltip("Data Trends & Patterns", target="sentiment-link", placement="right"),
             ]),
             dbc.NavLink(
                 html.Img(src=user_icon, style={"width": "100%", "maxHeight": "10vh", "marginBottom": "10px"}),

@@ -7,12 +7,12 @@ from components.filters_area import get_filter_values  # Import your filter valu
 import pandas as pd
 
 # Register callback to update the article selection dropdown based on the DataFrame (dfs)
-def register_article_selection_card(app, dfs):
+def register_update_article_selection(app, dfs):
     @app.callback(
-        Output({'type': 'article-selection-dropdown'}, 'options'),
+        Output({'type': 'article-selection-dropdown', 'page': article_page_name}, 'options'),
         [
             Input('page-load-trigger', 'data'),  # This will be triggered on page load
-            *get_filter_values()  # Add filter inputs dynamically here
+            *get_filter_values(article_page_name)  # Add filter inputs dynamically here
         ]
     )
     def update_article_selection_dropdown(_, selected_companies, selected_authors, date_range):

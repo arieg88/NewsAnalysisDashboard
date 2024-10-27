@@ -1,13 +1,52 @@
-from configurations.config import my_color_discrete_sequence
+from configurations.config import *
 from dash import dcc
 import plotly.express as px
 import pandas as pd
 
-def set_article_id(article_id):
-    if article_id is None:
-        return 0
-    
-    return article_id
+def plot_emotion_heatmap(emotion_df, original_index):
+    # Filter for the selected article
+    article_emotions = emotion_df[emotion_df['Original_index'] == original_index]
+
+    # Convert text_sentences to a DataFrame
+    emotion_data = article_emotions['text_sentences'].apply(pd.Series)
+
+    # Create a heatmap
+    fig = px.imshow(
+        emotion_data.T,  # Transpose to have emotions on the y-axis and sentences on the x-axis
+        labels=dict(x="Sentence Index", y="Emotion", color="Word Count"),
+        title=f'Emotion Heatmap',
+    )
+    return dcc.Graph(figure=fig)
+
+
+# Function to plot emotional journey for a selected article
+def plot_emotional_journey(emotion_df, original_index):
+    # Filter for the selected article based on Original_index
+    article_emotions = emotion_df[emotion_df['Original_index'] == original_index]
+
+    # Expand dictionary into separate emotion columns
+    emotion_data = article_emotions['text_sentences'].apply(pd.Series)
+    emotion_data['Sentence_index'] = article_emotions['Sentence_index']
+
+    # Filter emotions_list to include only the columns present in emotion_data
+    available_emotions = [emotion for emotion in emotions_list if emotion in emotion_data.columns]
+
+    # Melt the data for plotting (convert wide data to long data format)
+    plot_df = emotion_data.melt(id_vars=['Sentence_index'], value_vars=available_emotions,
+                                var_name='Emotion', value_name='Count')
+
+    # Plot the stacked bar chart using Plotly Express
+    fig = px.bar(
+        plot_df,
+        x='Sentence_index',
+        y='Count',
+        color='Emotion',
+        title=f'Emotional Journey',
+        labels={'Sentence_index': 'Sentence', 'Count': 'Emotion Words'},
+        color_discrete_sequence=my_color_discrete_sequence,
+    )
+    return dcc.Graph(figure=fig)
+
 
 def plot_emotion_distribution(final_df, article_id):
     """
@@ -20,7 +59,6 @@ def plot_emotion_distribution(final_df, article_id):
     Returns:
         A dcc.Graph component containing the Plotly bar chart.
     """
-    article_id = set_article_id(article_id)
 
     # Filter the article's emotion data
     filtered_article = final_df[final_df['id'] == article_id]  # Adjust the column name as necessary
@@ -69,8 +107,6 @@ def plot_entity_types_breakdown(entities_df, article_id):
     Returns:
         A dcc.Graph component containing the Plotly pie chart.
     """
-    article_id = set_article_id(article_id)
-
     # Filter entities for the selected article
     filtered_entities = entities_df[entities_df['Original_index'] == article_id]
     
@@ -110,8 +146,6 @@ def plot_entities_found_in_article(entities_df, article_id):
     Returns:
         A Plotly figure of the bar chart.
     """
-    article_id = set_article_id(article_id)
-
     # Filter entities for the selected article
     filtered_entities = entities_df[entities_df['Original_index'] == article_id]
     
@@ -139,10 +173,12 @@ def plot_entities_found_in_article(entities_df, article_id):
         xaxis_title="Entities",
         yaxis_title="Frequency",
         showlegend=False,
-        margin=dict(l=40, r=40, t=60, b=40)
+        margin=dict(l=40, r=40, t=60, b=40),
+        xaxis=dict(tickangle=45)  # Rotate x-axis labels by 45 degrees
     )
 
     return dcc.Graph(figure=fig)
+
 
 def plot_positive_vs_negative_sentence_count(df, article_id):
     """
@@ -157,7 +193,6 @@ def plot_positive_vs_negative_sentence_count(df, article_id):
     Returns:
     - A Dash component with a pie chart of positive vs. negative sentence count.
     """
-    article_id = set_article_id(article_id)
     # Extract the list of sentiment dictionaries for the selected article
     sentiment_data = df.loc[article_id, 'Finbert_sentence_list']
 
@@ -196,7 +231,6 @@ def plot_sentiment_analysis_per_sentence(df, article_id):
     - A Dash component with a scatter plot of sentiment scores per sentence.
     """
     # Extract the list of sentiment dictionaries for the selected article
-    article_id = set_article_id(article_id)
     
     sentiment_data = df.loc[article_id, 'Finbert_sentence_list']
     
@@ -214,12 +248,11 @@ def plot_sentiment_analysis_per_sentence(df, article_id):
     })
     
     # Create the scatter plot
-    fig = px.scatter(
+    fig = px.bar(
         plot_df,
         x='Sentence Number',
         y='Sentiment Score',
         color='Sentiment Label',
-        color_discrete_map={'positive': 'green', 'neutral': 'gray', 'negative': 'red'},
         labels={'x': 'Sentence Number', 'y': 'Sentiment Score'},
         title="Sentiment Analysis per Sentence (FinBERT)",
         color_discrete_sequence=my_color_discrete_sequence

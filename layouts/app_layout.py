@@ -8,7 +8,6 @@ import dash
 
 # App layout
 def get_app_layout(page_name, page_top=None, placeholder="Select an option"):
-    article_options_label = page_labels[page_name]
     return html.Div(
     style={"display": "flex", "height": "100vh"},
     children=[
@@ -17,7 +16,7 @@ def get_app_layout(page_name, page_top=None, placeholder="Select an option"):
             dbc.Container(
                 [
                     dbc.Row(dbc.Col(id="page-top-container", children=page_top)),
-                    dbc.Row(dbc.Col(id="cards-container", children=[create_plot_card(1, page_name, placeholder=placeholder)]))
+                    dbc.Row(dbc.Col(id="cards-container", children=[create_plot_card(page_name, placeholder=placeholder)]))
                 ],
                 style={"marginTop": "20px"},
             ),

@@ -1,4 +1,4 @@
-from dash import html
+from dash import html, dcc
 import dash_bootstrap_components as dbc
 from components.navbar import navbar
 import dash
@@ -11,6 +11,7 @@ def layout():
 def create_homepage_layout():
     return dbc.Container(
         [
+            dcc.Location(id='_pages_location', refresh=False),
             dbc.Row(  # Wrap the columns in a row to align them side by side
                 [
                     # Left navbar column

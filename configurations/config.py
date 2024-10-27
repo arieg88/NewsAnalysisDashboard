@@ -1,9 +1,13 @@
 import plotly.express as px
 
+article_page_name = 'article_page'
+trends_page_name = 'trends_and_patterns_page'
+
 # my_color_discrete_sequence=px.colors.cyclical.IceFire
 # my_color_discrete_sequence=px.colors.qualitative.Vivid
 my_color_discrete_sequence = px.colors.sequential.Plasma
 companies = ['Apple', 'Microsoft', 'Nvidia', 'Amazon', 'Meta', 'Alphabet', 'Berkshire Hathaway', 'Broadcom', 'Eli Lilly', 'Jpmorgan', 'Tesla'] 
+emotions_list = ['anticipation', 'fear', 'negative', 'joy', 'positive', 'surprise', 'trust', 'anger', 'disgust', 'sadness']
 
 # Navbar Components
 project_logo = "../assets/logo.png"
@@ -19,23 +23,30 @@ categories = {
     {"label": "Positive vs. Negative Sentence Count", "value": "positive_vs_negative_sentence_count"},
     {"label": "Entities Found in the Article", "value": "entities_found_in_article"},
     {"label": "Entity Types Breakdown", "value": "entity_types_breakdown"},
-    {"label": "Emotional Journey", "value": "emotion_distribution"},
+    {"label": "Emotional Journey", "value": "emotional_journey"},
+    {"label": "Emotions Distribution", "value": "emotion_distribution"},
+    {"label": "Emotion Heatmap (Across Sentences)", "value": "emotion_heatmap"},
     ],
-    "sentiment_page": [
-    {"label": "Sentiment Score over Time", "value": "sentiment_score"},
-    {"label": "Sentiment Analysis by Company", "value": "sentiment_by_company"},
-    {"label": "Monthly Sentiment Score Trends", "value": "monthly_sentiment_trends"},
-    {"label": "Sentiment Analysis by Author", "value": "sentiment_by_author"},
-    {"label": "Sentiment Analysis of Headlines", "value": "headline_sentiment"},
-    {"label": "Cumulative Sentiment Score Over Time", "value": "cumulative_sentiment"},
-    {"label": "Comparison of Stock Performance vs. Sentiment", "value": "stock_vs_sentiment"},
-    {"label": "Sentiment Analysis by Publication Source", "value": "sentiment_by_source"},
-    {"label": "Daily Sentiment Score Variation", "value": "daily_sentiment_variation"},
-    {"label": "Impact of News on Stock Market Trends", "value": "news_stock_impact"},
-    {"label": "Sentiment Analysis of Market Predictions", "value": "market_predictions_sentiment"},
-    {"label": "Sentiment Impact of Earnings Reports", "value": "earnings_report_impact"},
-    {"label": "Sentiment Analysis of International News", "value": "international_news_sentiment"},
-    {"label": "Impact of Political News on Company Sentiment", "value": "political_news_impact"},
+    "trends_and_patterns_page": [
+    {"label": "Article Count By Month", "value": "article_count_by_month"},
+    {"label": "Article Count By Week", "value": "article_count_by_week"},
+    {"label": "Top Entities By Month", "value": "top_entities_by_month"},
+    {"label": "Top Entity Types By Month", "value": "top_entity_types_by_month"},
+    {"label": "Sentiment Distribution By Company", "value": "sentiment_distribution_by_company"},
+    {"label": "Monthly Average Emotion: Joy", "value": "plot_monthly_avg_emotion_joy"},
+    # {"label": "Sentiment Analysis by Company", "value": "sentiment_by_company"},
+    # {"label": "Monthly Sentiment Score Trends", "value": "monthly_sentiment_trends"},
+    # {"label": "Sentiment Analysis by Author", "value": "sentiment_by_author"},
+    # {"label": "Sentiment Analysis of Headlines", "value": "headline_sentiment"},
+    # {"label": "Cumulative Sentiment Score Over Time", "value": "cumulative_sentiment"},
+    # {"label": "Comparison of Stock Performance vs. Sentiment", "value": "stock_vs_sentiment"},
+    # {"label": "Sentiment Analysis by Publication Source", "value": "sentiment_by_source"},
+    # {"label": "Daily Sentiment Score Variation", "value": "daily_sentiment_variation"},
+    # {"label": "Impact of News on Stock Market Trends", "value": "news_stock_impact"},
+    # {"label": "Sentiment Analysis of Market Predictions", "value": "market_predictions_sentiment"},
+    # {"label": "Sentiment Impact of Earnings Reports", "value": "earnings_report_impact"},
+    # {"label": "Sentiment Analysis of International News", "value": "international_news_sentiment"},
+    # {"label": "Impact of Political News on Company Sentiment", "value": "political_news_impact"},
     ],
     "emotion_page": [
     {"label": "Emotion Scores Distribution", "value": "emotion_distribution"},
@@ -67,9 +78,9 @@ categories = {
         {"label": "Analysis of Articles by Date Range", "value": "articles_by_date_range"},
     ],
 }
-# Define the available options
+
 page_labels = {
-        "sentiment_page": "Sentiment Analysis",
+        "trends_and_patterns_page": "Trends And Patterns Analysis",
         "emotion_page": "Emotion Analysis",
         "article_page": "Article Analysis",
         "comparative_page": "Comparative and Correlation Analysis",
