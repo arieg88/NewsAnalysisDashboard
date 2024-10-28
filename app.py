@@ -1,19 +1,19 @@
 import dash
 import dash_bootstrap_components as dbc
-from dash import dcc, html
-from dash.dependencies import Input, Output, State, MATCH
-import pandas as pd
-import plotly
-import plotly.express as px
 from configurations.config import *
 from components.navbar import *
 from components.plot_card import *
 from utils import load_dfs
 import callbacks
+import os
+import matplotlib
+
+# Redirect Matplotlib cache to a temporary location and use non-GUI backend
+os.environ['MPLCONFIGDIR'] = './tmp'
+matplotlib.use('Agg')  # Non-interactive backend for server use
 
 # Load the DataFrames
 dfs = load_dfs()
-
 # Include Font Awesome and Bootstrap in external stylesheets
 external_stylesheets = [
     dbc.themes.BOOTSTRAP,
