@@ -4,13 +4,6 @@ from configurations.config import *
 from components.navbar import *
 from components.plot_card import *
 from utils import load_dfs
-import callbacks
-import os
-import matplotlib
-
-# Redirect Matplotlib cache to a temporary location and use non-GUI backend
-os.environ['MPLCONFIGDIR'] = './tmp'
-matplotlib.use('Agg')  # Non-interactive backend for server use
 
 # Load the DataFrames
 dfs = load_dfs()
@@ -29,4 +22,6 @@ callbacks.register_callbacks(app, dfs)
 
 # Run the app
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    host = '127.0.0.1'
+    port = 8000
+    app.run_server(hsot=host, port=port, debug=True)
