@@ -22,7 +22,7 @@ import requests
 def download_and_extract_data():
     # Define the data directory and zip file URL
     data_dir = './data'
-    zip_file_url = 'YOUR_GOOGLE_DRIVE_LINK_HERE'  # Replace with your actual URL
+    zip_file_url = os.getenv('ZIP_FILE_URL')  # Ensure this environment variable is set
 
     # Check if the data directory exists
     if not os.path.exists(data_dir):
@@ -38,10 +38,6 @@ def download_and_extract_data():
         # Unzip the file
         with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
             zip_ref.extractall(data_dir)
-
-# Call the function before running the server
-download_and_extract_data()
-
 
 def load_dfs():
     dfs = {key: pd.read_csv(dfs_paths[key]) for key in dfs_paths.keys()}
