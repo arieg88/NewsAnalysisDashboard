@@ -8,10 +8,8 @@ import plotly.express as px
 from configurations.config import *
 from components.navbar import *
 from components.plot_card import *
-from utils import load_dfs, download_and_extract_data
+from utils import load_dfs
 import callbacks
-
-download_and_extract_data()
 
 # Load the DataFrames
 dfs = load_dfs()
