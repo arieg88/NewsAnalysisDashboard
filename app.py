@@ -21,6 +21,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets, suppress_ca
 app.layout = dbc.Container(dash.page_container, fluid=True)
 
 callbacks.register_callbacks(app, dfs)
+server = app.server
 
 # Run the app
 if __name__ == '__main__':
