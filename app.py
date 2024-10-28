@@ -7,6 +7,7 @@ from utils import load_dfs
 
 # Load the DataFrames
 dfs = load_dfs()
+
 # Include Font Awesome and Bootstrap in external stylesheets
 external_stylesheets = [
     dbc.themes.BOOTSTRAP,
