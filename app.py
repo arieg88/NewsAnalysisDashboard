@@ -4,6 +4,7 @@ from configurations.config import *
 from components.navbar import *
 from components.plot_card import *
 from utils import load_dfs
+import callbacks
 
 # Load the DataFrames
 dfs = load_dfs()
@@ -25,4 +26,4 @@ callbacks.register_callbacks(app, dfs)
 if __name__ == '__main__':
     host = '127.0.0.1'
     port = 8000
-    app.run_server(hsot=host, port=port, debug=True)
+    app.run(host=host, port=port, debug=True)
