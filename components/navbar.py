@@ -33,13 +33,23 @@ navbar = dbc.Navbar(
                 dbc.Tooltip("Article Analysis", target="article-link", placement="right"),
                 html.Br(),
                 dbc.NavLink(
-                    html.Img(src=sen_and_tren_icon, style={"width": "50%", "maxHeight": "10vh"}),
+                    html.Img(src=trend_and_patterns_icon, style={"width": "50%", "maxHeight": "10vh"}),
                     href="/trends_and_patterns",
                     active="exact",
                     style={"backgroundColor": "transparent", "border": "none"},
-                    id="sentiment-link"
+                    id="trends-and-patterns-link"
                 ),
-                dbc.Tooltip("Data Trends & Patterns", target="sentiment-link", placement="right"),
+                dbc.Tooltip("Data Trends & Patterns", target="trends-and-patterns-link", placement="right"),
+                
+                html.Br(),
+                dbc.NavLink(
+                    html.Img(src=financial_narrative_icon, style={"width": "50%", "maxHeight": "10vh"}),
+                    href="/financial_narrative",
+                    active="exact",
+                    style={"backgroundColor": "transparent", "border": "none"},
+                    id="financial_narrative_link"
+                ),
+                dbc.Tooltip("Financial Narrative Insights (Not Yet Impelemnted)", target="financial_narrative_link", placement="right"),
             ]),
             dbc.NavLink(
                 html.Img(src=user_icon, style={"width": "100%", "maxHeight": "10vh", "marginBottom": "10px"}),

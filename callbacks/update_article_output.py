@@ -24,6 +24,14 @@ def update_article_output(subcategory_value, dfs, article_id=0):
         return plot_emotional_journey(dfs['emotions_df'], article_id)
     elif subcategory_value == 'emotion_heatmap':
         return plot_emotion_heatmap(dfs['emotions_df'], article_id)
+    elif subcategory_value == 'wordcloud':
+        return plot_wordcloud(dfs['final_df'], article_id)
+    elif subcategory_value == 'comparison_sentence_sentiment':
+        return plot_sentence_sentiment(dfs['final_df'], article_id)
+    elif subcategory_value == 'narrative_arc':
+        return plot_narrative_arc(dfs['emotions_df'], article_id)
+    elif subcategory_value == 'article_emotion_radar':
+        return plot_emotions_radar(dfs['emotions_df'], article_id)
     return "Select an option to see the plot."
 
 

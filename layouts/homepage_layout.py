@@ -66,7 +66,7 @@ def create_homepage_layout():
                             dbc.Row(
                                 dbc.Col(
                                     html.P(
-                                        "This dashboard offers a comprehensive view of financial news, analyzing not only sentiment but also emotions, trends, and company-specific insights. With data-driven tools, it helps you visualize market sentiment and identify patterns in corporate news. 📈",
+                                        "This dashboard provides a comprehensive view of corporate news, allowing you to analyze sentiments, trends, and emotional tones in articles. By leveraging data visualization, you can uncover insights that correlate media narratives with market behavior. 📈",
                                         style={
                                             'color': '#154360',
                                             'font-size': '1.1rem',
@@ -108,44 +108,33 @@ def create_homepage_layout():
                                             html.Li(
                                                 [
                                                     html.Span(
-                                                        "📊 Sentiment & Trends: ",
+                                                        "📰 Article Analysis: ",
                                                         style={'font-weight': 'bold', 'color': '#3498DB'}
                                                     ),
                                                     html.Span(
-                                                        "Explore the overall sentiment and trends in news articles across multiple companies, visualized with dynamic charts and plots."
+                                                        "Dive into specific articles, view summaries, and analyze the sentiment and emotional tone through various visualizations."
                                                     )
                                                 ]
                                             ),
                                             html.Li(
                                                 [
                                                     html.Span(
-                                                        "😊 Emotion Analysis: ",
+                                                        "📈 Data Trends & Patterns: ",
                                                         style={'font-weight': 'bold', 'color': '#E74C3C'}
                                                     ),
                                                     html.Span(
-                                                        "Analyze the emotional tone of news content, ranging from joy and trust to fear and anger."
+                                                        "Explore sentiment and emotional analysis across the entire dataset or subsets, visualizing trends over time."
                                                     )
                                                 ]
                                             ),
                                             html.Li(
                                                 [
                                                     html.Span(
-                                                        "📰 Article Insights: ",
+                                                        "💹 Financial Narrative Insights: ",
                                                         style={'font-weight': 'bold', 'color': '#9B59B6'}
                                                     ),
                                                     html.Span(
-                                                        "Dive into specific articles, view summaries, and entity recognition details for a deeper understanding."
-                                                    )
-                                                ]
-                                            ),
-                                            html.Li(
-                                                [
-                                                    html.Span(
-                                                        "📉 Comparative Analysis: ",
-                                                        style={'font-weight': 'bold', 'color': '#F39C12'}
-                                                    ),
-                                                    html.Span(
-                                                        "Compare sentiment, trends, and patterns across multiple companies over time to track performance and media impact."
+                                                        "Compare articles with stock movements, uncovering the influence of media narratives on market performance."
                                                     )
                                                 ]
                                             ),
