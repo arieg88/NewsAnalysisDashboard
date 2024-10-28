@@ -15,6 +15,34 @@ dfs_paths = {'final_df': './data/final_df.csv',
 
 dfs_paths.update({company: f'./data/{company}_stock_df.csv' for company in companies_file_names})
 
+import os
+import zipfile
+import requests
+
+def download_and_extract_data():
+    # Define the data directory and zip file URL
+    data_dir = './data'
+    zip_file_url = 'YOUR_GOOGLE_DRIVE_LINK_HERE'  # Replace with your actual URL
+
+    # Check if the data directory exists
+    if not os.path.exists(data_dir):
+        os.makedirs(data_dir)
+        
+        # Download the zip file
+        response = requests.get(zip_file_url)
+        zip_file_path = os.path.join(data_dir, 'datasets.zip')
+
+        with open(zip_file_path, 'wb') as f:
+            f.write(response.content)
+
+        # Unzip the file
+        with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+            zip_ref.extractall(data_dir)
+
+# Call the function before running the server
+download_and_extract_data()
+
+
 def load_dfs():
     dfs = {key: pd.read_csv(dfs_paths[key]) for key in dfs_paths.keys()}
     

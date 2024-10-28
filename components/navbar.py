@@ -53,7 +53,7 @@ navbar = dbc.Navbar(
             ]),
             dbc.NavLink(
                 html.Img(src=user_icon, style={"width": "100%", "maxHeight": "10vh", "marginBottom": "10px"}),
-                href="/aboutme",
+                href="/about_me",
                 active="exact",
                 style={"backgroundColor": "transparent", "border": "none"},
                 id="aboutme-link"

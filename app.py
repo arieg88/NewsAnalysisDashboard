@@ -8,23 +8,13 @@ import plotly.express as px
 from configurations.config import *
 from components.navbar import *
 from components.plot_card import *
-from utils import load_dfs
+from utils import load_dfs, download_and_extract_data
 import callbacks
 
-# from layouts.homepahe_layout import create_homepage_layout
+download_and_extract_data()
 
-
-# Load the DataFrame
-df = pd.read_csv("./data/final_df.csv")
-
+# Load the DataFrames
 dfs = load_dfs()
-# # Ensure that the Agg_Finbert_aggregated_score is numeric, converting if necessary
-# df['Agg_Finbert_aggregated_score'] = pd.to_numeric(df['Agg_Finbert_aggregated_score'], errors='coerce')
-
-# Now you can calculate the mean safely, grouping by sentiment
-# finbert_scores = df.groupby('Agg_Finbert_overall_sentiment')['Agg_Finbert_aggregated_score'].mean().reset_index()
-# finbert_scores.columns = ['Sentiment', 'Score']
-
 
 # Include Font Awesome and Bootstrap in external stylesheets
 external_stylesheets = [
