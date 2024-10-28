@@ -37,6 +37,10 @@ def load_dfs():
             "safebrowsing.enabled": True              # Enable Safe Browsing (might be required)
         })
 
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
+
         # Initialize WebDriver
         driver = webdriver.Chrome(options=options)
 
