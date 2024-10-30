@@ -18,8 +18,8 @@ dfs_paths = {
     'emotions_df': './data/emotions_df.csv'
 }
 
-# Update dfs_paths with stock DataFrame paths for each company
-dfs_paths.update({company: f'./data/{company}_stock_df.csv' for company in companies_file_names})
+# # Update dfs_paths with stock DataFrame paths for each company
+# dfs_paths.update({company: f'./data/{company}_stock_df.csv' for company in companies_file_names})
 
 def download_dfs(data_dir='./data'):
     """
