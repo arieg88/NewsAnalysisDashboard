@@ -13,13 +13,9 @@ companies_file_names += ['Berkshire_Hathaway', 'Eli_Lilly']
 
 # Paths to the required DataFrames
 dfs_paths = {
-    # 'final_df': './data/final_df.csv',
-    # 'entities_df': './data/entities_df.csv',
-    # 'emotions_df': './data/emotions_df.csv'
-
-    'final_df': './tmp/data/final_df.csv',
-    'entities_df': './tmp/data/entities_df.csv',
-    'emotions_df': './tmp/data/emotions_df.csv'
+    'final_df': './data/final_df.csv',
+    'entities_df': './data/entities_df.csv',
+    'emotions_df': './data/emotions_df.csv'
 }
 
 # # Update dfs_paths with stock DataFrame paths for each company
