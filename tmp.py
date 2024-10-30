@@ -2,28 +2,21 @@ import pandas as pd
 
 # Load the DataFrame
 df = pd.read_csv('./data/final_df.csv', parse_dates=['Date'])
+entities_df = pd.read_csv('./data/entities_df.csv')
+emotions_df = pd.read_csv('./data/emotions_df.csv')
 
-# Count duplicates by Title and Date
-duplicate_counts = df.groupby(['Title', 'Date']).size().reset_index(name='Count')
+# Group by 'Company' and 'Month', then apply a function to sample articles
+small_df = df.groupby(['Company', 'Month']).apply(lambda x: x.sample(n=min(len(x), 5), random_state=1)).reset_index(drop=True)
+small_df.rename({'Unnamed: 0': 'Original_index'}, axis=1, inplace=True)
 
-# Filter to get only those with more than one occurrence
-duplicates = duplicate_counts[duplicate_counts['Count'] > 1]
+small_entities_df = entities_df[entities_df['Original_index'].isin(small_df['Original_index'])]
 
-# Print results with associated companies for each duplicate
-if duplicates.empty:
-    print("No duplicates found based on Title and Date.")
-else:
-    print("Duplicate articles by Title, Date, and Company:")
-    for _, row in duplicates.iterrows():
-        # Filter the original DataFrame to get companies for this Title and Date
-        title, date = row['Title'], row['Date']
-        companies = df[(df['Title'] == title) & (df['Date'] == date)]['Company'].tolist()
-        
-        # Print Title, Date, Count, and associated companies
-        print(f"Title: {title}, Date: {date.strftime('%d/%m/%Y %H:%M:%S')}, Count: {row['Count']}, Companies: {', '.join(companies)}")
+small_emotions_df = emotions_df[emotions_df['Original_index'].isin(small_df['Original_index'])]
 
+print(small_df.shape)
+print(small_entities_df.shape)
+print(small_emotions_df.shape)
 
-print()
-print()
-print(len(df))
-print(len(duplicates))
+small_df.to_csv('./tmp/data/final_df.csv')
+small_entities_df.to_csv('./tmp/data/entities_df.csv')
+small_emotions_df.to_csv('./tmp/data/emotions_df.csv')

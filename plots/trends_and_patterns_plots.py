@@ -1,3 +1,4 @@
+# Import necessary libraries and components
 from configurations.config import *
 from dash import dcc
 import plotly.express as px
@@ -5,6 +6,15 @@ import pandas as pd
 import plotly.graph_objects as go
 
 def plot_stacked_article_count_by_month(df):
+    """
+    Creates a stacked bar chart of article counts grouped by month and company.
+    
+    Parameters:
+    - df: DataFrame containing 'Month' and 'Company' columns.
+    
+    Returns:
+    - dcc.Graph: Dash Core Components Graph containing the bar chart figure.
+    """
     # Group by month and company, then count articles
     article_counts = df.groupby(['Month', 'Company']).size().reset_index(name='Article Count')
 
@@ -17,7 +27,7 @@ def plot_stacked_article_count_by_month(df):
         x='Month',
         y='Article Count',
         color='Company',
-        title="Monthly Article Count by Company",
+        title='Monthly Article Count by Company',
         labels={'Month': 'Month', 'Article Count': 'Article Count'},
         barmode='stack',
         color_discrete_sequence=my_color_discrete_sequence
@@ -25,9 +35,9 @@ def plot_stacked_article_count_by_month(df):
 
     fig.update_layout(
         xaxis_tickformat='%Y-%m',  # Format x-axis as Year-Month
-        xaxis_title="Month",
-        yaxis_title="Article Count",
-        legend_title="Company",
+        xaxis_title='Month',
+        yaxis_title='Article Count',
+        legend_title='Company',
         margin=dict(l=40, r=10, t=40, b=40)
     )
 
@@ -36,12 +46,20 @@ def plot_stacked_article_count_by_month(df):
     
     return dcc.Graph(figure=fig)
 
-
 def plot_stacked_article_count_by_week(df):
-    # Group by month and company, then count articles
+    """
+    Creates a stacked bar chart of article counts grouped by week and company.
+    
+    Parameters:
+    - df: DataFrame containing 'Week' and 'Company' columns.
+    
+    Returns:
+    - dcc.Graph: Dash Core Components Graph containing the bar chart figure.
+    """
+    # Group by week and company, then count articles
     article_counts = df.groupby(['Week', 'Company']).size().reset_index(name='Article Count')
 
-    # Sort data within each month by article count (descending)
+    # Sort data within each week by article count (descending)
     article_counts = article_counts.sort_values(by=['Week', 'Article Count'], ascending=[True, False])
 
     # Create the Plotly figure
@@ -50,7 +68,7 @@ def plot_stacked_article_count_by_week(df):
         x='Week',
         y='Article Count',
         color='Company',
-        title="Weekly Article Count by Company",
+        title='Weekly Article Count by Company',
         labels={'Week': 'Week', 'Article Count': 'Article Count'},
         barmode='stack',
         color_discrete_sequence=my_color_discrete_sequence
@@ -58,9 +76,9 @@ def plot_stacked_article_count_by_week(df):
 
     fig.update_layout(
         xaxis_tickformat='%Y-%m',  # Format x-axis as Year-Month
-        xaxis_title="Week",
-        yaxis_title="Article Count",
-        legend_title="Company",
+        xaxis_title='Week',
+        yaxis_title='Article Count',
+        legend_title='Company',
         margin=dict(l=40, r=10, t=40, b=40)
     )
 
@@ -69,8 +87,17 @@ def plot_stacked_article_count_by_week(df):
 
     return dcc.Graph(figure=fig)
 
-
 def plot_top_entities_by_month(entities_df, final_df):
+    """
+    Creates a stacked bar chart of the top 10 frequent entities grouped by month.
+    
+    Parameters:
+    - entities_df: DataFrame containing entity data.
+    - final_df: DataFrame containing the 'Month' column for merging.
+    
+    Returns:
+    - dcc.Graph: Dash Core Components Graph containing the bar chart figure.
+    """
     # Merge entities_df with final_df to add the 'Month' column based on 'Original_index'
     entities_with_month = entities_df.merge(final_df[['Month']], left_on='Original_index', right_index=True)
 
@@ -91,7 +118,7 @@ def plot_top_entities_by_month(entities_df, final_df):
         x='Month',
         y='Count',
         color='Entity_name',
-        title="Top 10 Frequent Entities by Month",
+        title='Top 10 Frequent Entities by Month',
         labels={'Month': 'Month', 'Count': 'Entity Count'},
         barmode='stack',
         color_discrete_sequence=my_color_discrete_sequence
@@ -99,9 +126,9 @@ def plot_top_entities_by_month(entities_df, final_df):
 
     fig.update_layout(
         xaxis_tickformat='%Y-%m',  # Format x-axis as Year-Month
-        xaxis_title="Month",
-        yaxis_title="Entity Count",
-        legend_title="Entity",
+        xaxis_title='Month',
+        yaxis_title='Entity Count',
+        legend_title='Entity',
         margin=dict(l=40, r=10, t=40, b=40)
     )
 
@@ -109,6 +136,16 @@ def plot_top_entities_by_month(entities_df, final_df):
     return dcc.Graph(figure=fig)
 
 def plot_top_entity_types_by_month(entities_df, final_df):
+    """
+    Creates a stacked bar chart of the top frequent entity types grouped by month.
+    
+    Parameters:
+    - entities_df: DataFrame containing entity data.
+    - final_df: DataFrame containing the 'Month' column for merging.
+    
+    Returns:
+    - dcc.Graph: Dash Core Components Graph containing the bar chart figure.
+    """
     # Merge entities_df with final_df to add the 'Month' column based on 'Original_index'
     entities_with_month = entities_df.merge(final_df[['Month']], left_on='Original_index', right_index=True)
 
@@ -129,7 +166,7 @@ def plot_top_entity_types_by_month(entities_df, final_df):
         x='Month',
         y='Count',
         color='Entity_type',
-        title="Top Frequent Entity Types by Month",
+        title='Top Frequent Entity Types by Month',
         labels={'Month': 'Month', 'Count': 'Entity Type Count'},
         barmode='stack',
         color_discrete_sequence=my_color_discrete_sequence
@@ -137,9 +174,9 @@ def plot_top_entity_types_by_month(entities_df, final_df):
 
     fig.update_layout(
         xaxis_tickformat='%Y-%m',  # Format x-axis as Year-Month
-        xaxis_title="Month",
-        yaxis_title="Entity Type Count",
-        legend_title="Entity Type",
+        xaxis_title='Month',
+        yaxis_title='Entity Type Count',
+        legend_title='Entity Type',
         margin=dict(l=40, r=10, t=40, b=40)
     )
 
@@ -155,21 +192,21 @@ def plot_sentiment_distribution_by_company(df):
     - df: DataFrame containing columns 'Company' and 'Agg_Finbert_aggregated_score'
     
     Returns:
-    - dcc.Graph: Dash Core Components Graph containing the box plot figure
+    - dcc.Graph: Dash Core Components Graph containing the box plot figure.
     """
     fig = px.box(
         df,
         x='Company',
         y='Agg_Finbert_aggregated_score',
-        title="Sentiment Score Distribution by Company",
+        title='Sentiment Score Distribution by Company',
         labels={'Agg_Finbert_aggregated_score': 'Sentiment Score'},
         color='Company',
         color_discrete_sequence=my_color_discrete_sequence
     )
     
     fig.update_layout(
-        xaxis_title="Company",
-        yaxis_title="Sentiment Score",
+        xaxis_title='Company',
+        yaxis_title='Sentiment Score',
         margin=dict(l=40, r=10, t=40, b=40)
     )
     

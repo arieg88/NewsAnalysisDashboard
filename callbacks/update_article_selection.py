@@ -6,8 +6,8 @@ from components.plot_card import *
 from components.filters_area import get_filter_values  # Import your filter values function
 import pandas as pd
 
-# Register callback to update the article selection dropdown based on the DataFrame (dfs)
 def register_update_article_selection(app, dfs):
+    """Register callback to update the article selection dropdown based on the DataFrame (dfs)."""
     @app.callback(
         Output({'type': 'article-selection-dropdown', 'page': article_page_name}, 'options'),
         [
@@ -16,7 +16,7 @@ def register_update_article_selection(app, dfs):
         ]
     )
     def update_article_selection_dropdown(_, selected_companies, selected_authors, date_range):
-        # Extract article titles from the DataFrame
+        """Update the article selection dropdown based on selected filters."""
         if 'final_df' in dfs:
             df = dfs['final_df']  # Start with the full DataFrame
             # Apply filters
@@ -32,11 +32,8 @@ def register_update_article_selection(app, dfs):
                     end_date_utc = pd.Timestamp(end_date).tz_localize('UTC')
                     df = df[(df['Date'] >= start_date_utc) & (df['Date'] <= end_date_utc)]
 
+            # Update options for the article selection dropdown
+            options = [{'label': title, 'value': index} for index, title in enumerate(df['Title'])]
 
-            # Get unique article titles after filtering
-            unique_titles_with_ids = df.groupby('Title')['id'].first().reset_index()
-            article_titles = unique_titles_with_ids['Title'].tolist()
-            article_ids = unique_titles_with_ids['id'].tolist()
-            # Return the titles as options for the dropdown
-            return [{'label': title, 'value': article_id} for title, article_id in zip(article_titles, article_ids)]
-        return []
+            return options  # Return the filtered options
+        return []  # Return an empty list if DataFrame is not available

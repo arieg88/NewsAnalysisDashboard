@@ -3,15 +3,31 @@ import dash_bootstrap_components as dbc
 from components.navbar import navbar
 import dash
 
+# Register the homepage with Dash
 dash.register_page(__name__, path='/')
 
 def layout():
+    """
+    Define the layout for the homepage.
+
+    Returns:
+        dbc.Container: A Dash Bootstrap Container component containing the homepage layout.
+    """
     return create_homepage_layout()
 
 def create_homepage_layout():
+    """
+    Create the main layout structure for the homepage.
+
+    Returns:
+        dbc.Container: A Dash Bootstrap Container component with the structured content for the homepage.
+    """
+    
     return dbc.Container(
         [
+            # Location component to manage page routing
             dcc.Location(id='_pages_location', refresh=False),
+            
             dbc.Row(  # Wrap the columns in a row to align them side by side
                 [
                     # Left navbar column
@@ -20,6 +36,7 @@ def create_homepage_layout():
                     # Main content column
                     dbc.Col(
                         [
+                            # Main title row
                             dbc.Row(
                                 dbc.Col(
                                     html.H1(
@@ -35,6 +52,7 @@ def create_homepage_layout():
                                 ),
                                 justify="center",
                             ),
+                            # Welcome message row
                             dbc.Row(
                                 dbc.Col(
                                     html.P(
@@ -49,7 +67,9 @@ def create_homepage_layout():
                                 ),
                                 justify="center",
                             ),
-                            html.Hr(),
+                            html.Hr(),  # Horizontal line for separation
+                            
+                            # Project overview section
                             dbc.Row(
                                 dbc.Col(
                                     html.H3(
@@ -76,7 +96,9 @@ def create_homepage_layout():
                                     )
                                 ),
                             ),
-                            html.Hr(),
+                            html.Hr(),  # Horizontal line for separation
+                            
+                            # Explore the dashboard section
                             dbc.Row(
                                 dbc.Col(
                                     html.H3(
@@ -94,6 +116,7 @@ def create_homepage_layout():
                                 dbc.Col(
                                     html.Ul(
                                         [
+                                            # List of features with descriptions
                                             html.Li(
                                                 [
                                                     html.Span(
@@ -159,7 +182,9 @@ def create_homepage_layout():
                                     )
                                 ),
                             ),
-                            html.Hr(),
+                            html.Hr(),  # Horizontal line for separation
+                            
+                            # Closing message encouraging exploration
                             dbc.Row(
                                 dbc.Col(
                                     html.P(
@@ -181,6 +206,6 @@ def create_homepage_layout():
                 ],
             )
         ],
-        fluid=True,
-        style={'padding': '20px'}
+        fluid=True,  # Make the container fluid
+        style={'padding': '20px'}  # Padding around the container
     )
