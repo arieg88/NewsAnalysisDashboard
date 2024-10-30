@@ -19,8 +19,9 @@ def update_article_output(subcategory_value, dfs, article_id=0):
     Plotly figure or string: The plot corresponding to the subcategory or a prompt.
     """
     if article_id is None:
-        article_id = 0  # Default to the first article if none specified
-    
+        article_id = dfs['final_df'].index[0]  # Default to the first article if none specified
+
+
     # Return appropriate plot based on subcategory value
     if subcategory_value == 'sentiment_analysis_per_sentence':
         return plot_sentiment_analysis_per_sentence(dfs['final_df'], article_id)

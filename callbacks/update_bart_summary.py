@@ -32,5 +32,5 @@ def register_update_bart_summary(app, dfs):
             html.P: An HTML paragraph containing the BART summary.
         """
         if article_index is None:
-            article_index = 0  # Default to the first article if none is selected
+            article_index = dfs['final_df'].index[0]  # Default to the first article if none is selected
         return html.P(str(dfs['final_df'].loc[article_index, 'Bart_Summary']))

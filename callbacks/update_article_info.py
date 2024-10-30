@@ -29,7 +29,7 @@ def register_update_article_info(app, dfs):
         list: A list of HTML components displaying article information.
         """
         if article_index is None:
-            article_index = 0
+            article_index = dfs['final_df'].index[0]
 
         # Format date and retrieve company information
         date_formatted = dfs['final_df'].loc[article_index, 'Date'].strftime('%d/%m/%Y %H:%M:%S')

@@ -9,9 +9,11 @@ emotions_df = pd.read_csv('./data/emotions_df.csv')
 small_df = df.groupby(['Company', 'Month']).apply(lambda x: x.sample(n=min(len(x), 5), random_state=1)).reset_index(drop=True)
 small_df.rename({'Unnamed: 0': 'Original_index'}, axis=1, inplace=True)
 
-small_entities_df = entities_df[entities_df['Original_index'].isin(small_df['Original_index'])]
+small_entities_df = entities_df[entities_df['Original_index'].isin(small_df.index)]
+small_entities_df.drop('Unnamed: 0', axis=1, inplace=True)
 
-small_emotions_df = emotions_df[emotions_df['Original_index'].isin(small_df['Original_index'])]
+small_emotions_df = emotions_df[emotions_df['Original_index'].isin(small_df.index)]
+small_emotions_df.drop('Unnamed: 0', axis=1, inplace=True)
 
 print(small_df.shape)
 print(small_entities_df.shape)

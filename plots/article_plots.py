@@ -263,7 +263,6 @@ def plot_emotion_heatmap(emotion_df, original_index):
 def plot_emotional_journey(emotion_df, original_index):
     # Filter for the selected article based on Original_index
     article_emotions = emotion_df[emotion_df['Original_index'] == original_index]
-
     # Expand dictionary into separate emotion columns
     emotion_data = article_emotions['text_sentences'].apply(pd.Series)
     emotion_data['Sentence_index'] = article_emotions['Sentence_index']
