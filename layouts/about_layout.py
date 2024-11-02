@@ -97,7 +97,7 @@ def create_about_layout():
                             dbc.Row(
                                 dbc.Col(
                                     html.P(
-                                        "🚀 For ease of use, this dashboard operates on a sample of the data, keeping it light and optimized for free-tier hosting on Render. Explore the complete project and code repositories linked below!",
+                                        "🚀 I gathered more than 10K articles for these companies in 2024. For ease of use, this dashboard operates on a sample of the data, keeping it light and optimized for free-tier hosting on Render. Explore the complete project repositories linked below!",
                                         style={
                                             'color': '#154360',
                                             'font-size': '1.1rem',
@@ -114,11 +114,11 @@ def create_about_layout():
                                     html.Ul(
                                         [
                                             html.Li(
-                                                html.A("📂 Scrapers & Dataset Building GitHub Repo", href="https://github.com/your-repo-link", target="_blank"),
+                                                html.A("📂 Scrapers & Dataset Building GitHub Repo", href="https://github.com/arieg88/FinanceDataBuilder", target="_blank"),
                                                 style={'font-size': '1.1rem', 'color': '#1ABC9C'}
                                             ),
                                             html.Li(
-                                                html.A("📊 Dashboard GitHub Repo", href="https://github.com/your-dashboard-repo-link", target="_blank"),
+                                                html.A("📊 Dashboard GitHub Repo", href="https://github.com/arieg88/NewsAnalysisDashboard/", target="_blank"),
                                                 style={'font-size': '1.1rem', 'color': '#3498DB'}
                                             ),
                                         ],
