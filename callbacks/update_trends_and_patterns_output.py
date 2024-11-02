@@ -84,12 +84,12 @@ def register_trends_and_patterns_output_update(app, dfs):
     """
     # Callback for generating plots based on selected subcategory
     @app.callback(
-        Output({'type': 'output-top-left', 'page': trends_page_name}, 'children'),
-        [Input({'type': 'subcategory-dropdown-top-left', 'page': trends_page_name}, 'value'),
+        Output({'type': 'output-div', 'page': trends_page_name, 'index': MATCH}, 'children'),
+        [Input({'type': 'subcategory-dropdown', 'page': trends_page_name, 'index': MATCH}, 'value'),
          Input('page-load-trigger', 'data'),
-         *get_filter_values(trends_page_name)]
+         *get_filter_values(trends_page_name)]  # Use State here instead of Input
     )
-    def update_top_left_output(subcategory_value, page_name, selected_companies, selected_authors, date_range):
+    def update_output(subcategory_value, page_name, selected_companies, selected_authors, date_range):
         """
         Updates the top left output area based on user selections from the dropdown.
 
@@ -102,49 +102,5 @@ def register_trends_and_patterns_output_update(app, dfs):
 
         Returns:
         Plot: The generated plot for the top left output.
-        """
-        return update_trends_and_patterns_output(subcategory_value, dfs, selected_companies, selected_authors, date_range)
-
-    @app.callback(
-        Output({'type': 'output-top-right', 'page': trends_page_name}, 'children'),
-        [Input({'type': 'subcategory-dropdown-top-right', 'page': trends_page_name}, 'value'),
-         Input('page-load-trigger', 'data'),
-         *get_filter_values(trends_page_name)]  # Use State here instead of Input
-    )
-    def update_top_right_output(subcategory_value, page_name, selected_companies, selected_authors, date_range):
-        """
-        Updates the top right output area based on user selections from the dropdown.
-
-        Parameters:
-        subcategory_value (str): The selected subcategory from the dropdown.
-        page_name: Data related to the page load trigger.
-        selected_companies (list): List of selected companies from filters.
-        selected_authors (list): List of selected authors from filters.
-        date_range (tuple): A tuple of selected start and end dates.
-
-        Returns:
-        Plot: The generated plot for the top right output.
-        """
-        return update_trends_and_patterns_output(subcategory_value, dfs, selected_companies, selected_authors, date_range)
-
-    @app.callback(
-        Output({'type': 'output-bottom', 'page': trends_page_name}, 'children'),
-        [Input({'type': 'subcategory-dropdown-bottom', 'page': trends_page_name}, 'value'),
-         Input('page-load-trigger', 'data'),
-         *get_filter_values(trends_page_name)]  # Use State here instead of Input
-    )
-    def update_bottom_output(subcategory_value, page_name, selected_companies, selected_authors, date_range):  
-        """
-        Updates the bottom output area based on user selections from the dropdown.
-
-        Parameters:
-        subcategory_value (str): The selected subcategory from the dropdown.
-        page_name: Data related to the page load trigger.
-        selected_companies (list): List of selected companies from filters.
-        selected_authors (list): List of selected authors from filters.
-        date_range (tuple): A tuple of selected start and end dates.
-
-        Returns:
-        Plot: The generated plot for the bottom output.
         """
         return update_trends_and_patterns_output(subcategory_value, dfs, selected_companies, selected_authors, date_range)

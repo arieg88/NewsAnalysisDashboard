@@ -1,5 +1,5 @@
 from dash import dcc
-from dash.dependencies import Input, Output, MATCH
+from dash.dependencies import Input, Output, State, ALL, MATCH
 import plotly.express as px
 from configurations.config import *
 from components.navbar import *
@@ -57,61 +57,25 @@ def register_article_output_update(app, dfs):
     dfs: A dictionary containing the DataFrames used in the dashboard.
     """
     @app.callback(
-        Output({'type': 'output-top-left', 'page': article_page_name}, 'children'),
-        [Input({'type': 'subcategory-dropdown-top-left', 'page': article_page_name}, 'value'),
-         Input('page-load-trigger', 'data'),
-         Input({'type': 'article-selection-dropdown', 'page': article_page_name}, 'value')]  # Use State here instead of Input
+        Output({'type': 'output-div', 'page': article_page_name, 'index': ALL}, 'children'),
+        [
+            Input({'type': 'subcategory-dropdown', 'page': article_page_name, 'index': ALL}, 'value'),
+            Input({'type': 'article-selection-dropdown', 'page': article_page_name}, 'value')
+        ]
     )
-    def update_top_left_output(subcategory_value, page_name, article_id=None):
+    def update_output(subcategory_values, article_id=None):
         """
-        Update the top left output area based on selected subcategory.
-        
+        Update the output areas based on selected subcategory and article ID.
+
         Parameters:
-        subcategory_value: The selected subcategory for the output.
-        page_name: The name of the current page.
+        subcategory_values: The list of selected subcategories for each dropdown.
         article_id: The ID of the article to be analyzed (default is None).
 
         Returns:
-        Plotly figure or string: The plot corresponding to the subcategory or a prompt.
+        List of Plotly figures or strings: The plots corresponding to each subcategory or a prompt.
         """
-        return update_article_output(subcategory_value, dfs, article_id)
-
-    @app.callback(
-        Output({'type': 'output-top-right', 'page': article_page_name}, 'children'),
-        [Input({'type': 'subcategory-dropdown-top-right', 'page': article_page_name}, 'value'),
-         Input('page-load-trigger', 'data'),
-         Input({'type': 'article-selection-dropdown', 'page': article_page_name}, 'value')]  # Use State here instead of Input
-    )
-    def update_top_right_output(subcategory_value, page_name, article_id=None):
-        """
-        Update the top right output area based on selected subcategory.
-        
-        Parameters:
-        subcategory_value: The selected subcategory for the output.
-        page_name: The name of the current page.
-        article_id: The ID of the article to be analyzed (default is None).
-
-        Returns:
-        Plotly figure or string: The plot corresponding to the subcategory or a prompt.
-        """
-        return update_article_output(subcategory_value, dfs, article_id)
-
-    @app.callback(
-        Output({'type': 'output-bottom', 'page': article_page_name}, 'children'),
-        [Input({'type': 'subcategory-dropdown-bottom', 'page': article_page_name}, 'value'),
-         Input('page-load-trigger', 'data'),
-         Input({'type': 'article-selection-dropdown', 'page': article_page_name}, 'value')]  # Use State here instead of Input
-    )
-    def update_bottom_output(subcategory_value, page_name, article_id=None):  
-        """
-        Update the bottom output area based on selected subcategory.
-        
-        Parameters:
-        subcategory_value: The selected subcategory for the output.
-        page_name: The name of the current page.
-        article_id: The ID of the article to be analyzed (default is None).
-
-        Returns:
-        Plotly figure or string: The plot corresponding to the subcategory or a prompt
-        """
-        return update_article_output(subcategory_value, dfs, article_id)
+        # Generate an output for each dropdown selection
+        return [
+            update_article_output(subcategory_value, dfs, article_id)
+            for subcategory_value in subcategory_values
+        ]

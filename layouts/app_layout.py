@@ -1,9 +1,8 @@
 import dash_bootstrap_components as dbc
 from dash import html
-import plotly.express as px
 from configurations.config import *
 from components.navbar import *
-from components.plot_card import * 
+from components.plot_card import create_plot_card
 import dash
 
 # App layout
@@ -30,12 +29,38 @@ def get_app_layout(page_name, page_top=None, placeholder="Select an option"):
                     [
                         # Top content area
                         dbc.Row(dbc.Col(id="page-top-container", children=page_top)),
+                        
                         # Cards container for plots
-                        dbc.Row(dbc.Col(id="cards-container", children=[create_plot_card(page_name, placeholder=placeholder)]))
+                        dbc.Row(
+                            dbc.Col(
+                                id={"type": "cards-container", "page": page_name},
+                                children=[
+                                    create_plot_card(page_name, placeholder=placeholder, index=0),
+                                    # Centered "+" button below the card(s) with minimal size
+                                    dbc.Row(
+                                        dbc.Col(
+                                            dbc.Button(
+                                                "+",
+                                                id={"type": "add-panel-button", "page": page_name},
+                                                style={'font-size': '24px', 'margin-top': '15px'},
+                                                color='secondary',
+                                                outline=True,
+                                            ),
+                                            width="auto"  # Ensures button only takes up as much space as necessary
+                                        ),
+                                        justify="center",
+                                    ),
+                                ]
+                            )
+                        ),
                     ],
                     style={"marginTop": "20px"},
                 ),
                 width=10,
+            ),
+            dbc.Tooltip('Add new plot',
+                target={"type": "add-panel-button", "page": page_name},
+                placement='right'
             ),
         ],
     )
