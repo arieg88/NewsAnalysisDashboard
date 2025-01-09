@@ -43,15 +43,7 @@ Learn about the project's goals and the cutting-edge technologies powering this 
 - 📊 **Data Handling**: Pandas, NumPy  
 - 🤖 **Sentiment Models**: FinBERT, Vader, Loughran-McDonald  
 - 🎨 **Visualizations**: Plotly, Dash Bootstrap Components  
-- 🚀 **Deployment**: Render  
-
----
-
-## 🎯 How to Use  
-
-1. 🌐 Visit the live site: [Corporate News Analysis Dashboard](https://news-analysis-dashboard.onrender.com/)  
-2. 🖱️ Navigate through sections using the side menu.  
-3. 📈 Explore trends, analyze articles, and uncover insights with interactive features.  
+- 🚀 **Deployment**: Render   
 
 ---
 
